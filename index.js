@@ -7,7 +7,7 @@ const app = express();
 const port = 80;
 
 // Middleware para servir arquivos estáticos da pasta /files
-app.use(express.static(path.join(__dirname, 'files')));
+app.use('/files', express.static(path.join(__dirname, 'files')));
 
 // Middleware para fazer o parsing do JSON no corpo da requisição
 app.use(express.json());
@@ -72,7 +72,7 @@ app.post('/gerar-pdf', async (req, res) => {
 
         // URLs locais e públicas
         const localUrl = `http://localhost:${port}/files/${pdfFilename}`;
-        const publicUrl = `http://do.omatheusdev.com/files/${pdfFilename}`;
+        const publicUrl = `http://contabo.omatheusdev.com/files/${pdfFilename}`;
 
         // Resposta com URLs locais e públicas
         res.send({
