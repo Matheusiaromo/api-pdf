@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path'); // Módulo para lidar com caminhos de arquivos
 const querystring = require('querystring'); // Módulo para manipular query strings
 const app = express();
-const port = 3000;
+const port = 80;
 
 // Middleware para servir arquivos estáticos da pasta /files
 app.use('/files', express.static(path.join(__dirname, 'files')));
