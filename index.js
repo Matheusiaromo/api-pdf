@@ -9,6 +9,14 @@ const port = 80;
 // Middleware para servir arquivos estáticos da pasta /files
 app.use('/files', express.static(path.join(__dirname, 'files')));
 
+// Middleware para definir o cabeçalho Content-Disposition para os arquivos PDF
+app.use('/files', (req, res, next) => {
+  if (req.url.endsWith('.pdf')) {
+      res.setHeader('Content-Disposition', 'attachment');
+  }
+  next();
+});
+
 // Middleware para fazer o parsing do JSON no corpo da requisição
 app.use(express.json());
 
