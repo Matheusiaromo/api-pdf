@@ -37,7 +37,10 @@ app.post('/gerar-pdf', async (req, res) => {
         };
 
         // Inicializa o puppeteer e abre uma nova página
-        const browser = await puppeteer.launch();
+        const browser = await puppeteer.launch({
+          executablePath: '/usr/bin/google-chrome', // Caminho para o executável do Chrome
+          args: ['--no-sandbox', '--disable-setuid-sandbox'],
+        });
         const page = await browser.newPage();
 
         // Constrói a URL com os parâmetros de consulta adicionados
