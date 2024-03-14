@@ -6,16 +6,6 @@ const querystring = require('querystring'); // Módulo para manipular query stri
 const app = express();
 const port = 80;
 
-// Middleware para definir o cabeçalho Content-Disposition para forçar o download
-app.use('/files', (req, res, next) => {
-    // Define o cabeçalho Content-Disposition para forçar o download
-    res.setHeader('Content-Disposition', 'attachment');
-    next();
-});
-
-// Middleware para servir arquivos estáticos da pasta /files
-app.use('/files', express.static(path.join(__dirname, 'files')));
-
 // Middleware para fazer o parsing do JSON no corpo da requisição
 app.use(express.json());
 
@@ -91,6 +81,19 @@ app.post('/gerar-pdf', async (req, res) => {
         console.error('Erro ao gerar o PDF:', error);
         res.status(500).send('Erro ao gerar o PDF');
     }
+});
+
+app.get('/files/:filename', (req, res) => {
+    const filename = req.params.filename;
+    const filePath = path.join(__dirname, 'files', filename);
+
+    res.download(filePath, filename, (err) => {
+        if (err) {
+            // Handle error, but don't leak to the client
+            console.error(err);
+            res.status(404).send('Arquivo não encontrado ou erro ao baixar.');
+        }
+    });
 });
 
 app.listen(port, () => {
