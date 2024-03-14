@@ -6,6 +6,13 @@ const querystring = require('querystring'); // Módulo para manipular query stri
 const app = express();
 const port = 80;
 
+// Middleware para definir o cabeçalho Content-Disposition para forçar o download
+app.use('/files', (req, res, next) => {
+    // Define o cabeçalho Content-Disposition para forçar o download
+    res.setHeader('Content-Disposition', 'attachment');
+    next();
+});
+
 // Middleware para servir arquivos estáticos da pasta /files
 app.use('/files', express.static(path.join(__dirname, 'files')));
 
