@@ -69,7 +69,7 @@ app.post('/gerar-pdf', async (req, res) => {
 
         // URLs locais e públicas
         const localUrl = `http://localhost:${port}/files/${pdfFilename}`;
-        const publicUrl = `http://contabo.omatheusdev.com/files/${pdfFilename}`;
+        const publicUrl = `https://contabo.omatheusdev.com/files/${pdfFilename}`;
 
         // Resposta com URLs locais e públicas
         res.send({
